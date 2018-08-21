@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Select from './Select';
+
 
 class AddBeer extends Component {
+  constructor() {
+    super();
+  }
   state = {
     name: '',
-    ibu: '',
+    ibu: 22,
     abv: '',
     style: '',
     brewery_location: '',
-    calories: ''
+    catergory: 'Pilsner',
+    calories: 300
   };
 
 
   onChange = (event) => {
-    // Because we named the inputs to match their corresponding values in state, it's
-    // super easy to update the state
     this.setState({ [event.target.name]: event.target.value });
   }
 
@@ -47,6 +51,7 @@ class AddBeer extends Component {
   render() {
     return (
       <form onSubmit={this.onSubmit}>
+        {/* <Select {...this.props}/> */}
         <input
           className="input"
           name="name"
@@ -60,6 +65,14 @@ class AddBeer extends Component {
           name="ibu"
           placeholder="Enter ibu"
           value={this.state.ibu}
+          onChange={event => this.onChange(event)}
+        />
+        <br />
+        <input
+          className="input"
+          name="catergory"
+          placeholder="Enter catergory"
+          value={this.state.catergory}
           onChange={event => this.onChange(event)}
         />
         <br />
@@ -95,7 +108,7 @@ class AddBeer extends Component {
           onChange={event => this.onChange(event)}
         />
         <br />
-        <button className="submit" onClick={e => this.onSubmit(e)}>Submit</button>
+        <button className="submit" onClick={e => this.onSubmit(e)}>Add Beer</button>
       </form>
     );
   }

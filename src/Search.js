@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-import Suggestions from './Suggestions'
+import Suggestions from './Suggestions';
 import AddBeer from './AddBeer';
-
 
 class Search extends Component {
   state = {
     error: false,
     query: '',
     results: [],
+    filteredResults: [],
     fields: {}
+  }
+
+  componentDidMount() {
+    this.getInfo();
   }
 
   getInfo = () => {
@@ -24,18 +28,13 @@ class Search extends Component {
   }
 
   handleInputChange = (event) => {
+    const query = event.target.value;
     this.setState({
-      query: event.target.value
-    }, () => {
-      if (this.state.query && this.state.query.length > 1) {
-        // this.showDropdown()
-        if (this.state.query.length % 2 === 0) {
-          this.getInfo()
-        }
-      } else if (!this.state.query) {
-        // this.hideDropdown()
-      }
-    })
+      query,
+    });
+    const { results } = this.state;
+    const filteredResults = results.filter(item => item.name.includes(query));
+    this.setState({ filteredResults });
   }
 
   onSubmit = (fields) => {
@@ -54,7 +53,7 @@ class Search extends Component {
           ref={input => this.search = input}
           onChange={this.handleInputChange}
         />
-        <Suggestions results={this.state.results} />
+        <Suggestions results={this.state.filteredResults} />
         <AddBeer onSubmit={fields => this.onSubmit(fields)}/>
         {/* <p>
           {JSON.stringify(this.state.fields, null,2)}

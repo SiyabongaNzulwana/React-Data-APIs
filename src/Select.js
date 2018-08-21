@@ -8,8 +8,8 @@ class Select extends Component {
   }
   render() {
     let catergories = this.props.state.catergories;
-    let optionItems = catergories.map((catergorie, i) =>
-      <option key={i}>{catergorie.name}</option>
+    let optionItems = catergories.map((catergory, i) =>
+      <option key={i}>{catergory.name}</option>
     );
 
     return (
