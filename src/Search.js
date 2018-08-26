@@ -43,7 +43,6 @@ class Search extends Component {
   }
 
   render() {
-    console.log('this.state.query: ', this.state.query)
     return (
       <form>
         <input
@@ -54,7 +53,7 @@ class Search extends Component {
           onChange={this.handleInputChange}
         />
         <Suggestions results={this.state.filteredResults} />
-        <AddBeer onSubmit={fields => this.onSubmit(fields)}/>
+        <AddBeer onSubmit={fields => this.onSubmit(fields)} data={this.props.data}/>
         {/* <p>
           {JSON.stringify(this.state.fields, null,2)}
         </p> */}

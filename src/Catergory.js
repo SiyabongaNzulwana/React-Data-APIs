@@ -1,32 +1,19 @@
 
 import React, { Component } from "react";
-import Select from "./Select";
 
 class Catergory extends Component {
-  constructor() {
-    super();
-    this.state = {
-      catergories: [],
-    };
-  }
-
-  componentDidMount() {
-    let initialCataergories = [];
-    fetch('http://apichallenge.canpango.com/categories/')
-      .then(response => {
-        return response.json();
-      }).then(data => {
-        initialCataergories = data.map((category) => {
-          return category
-        });
-        this.setState({
-          catergories: initialCataergories,
-        });
-      });
-  }
   render() {
+    console.log('this.props.data;', this.props.data);
+    let catergories = this.props.data;
+    let optionItems = catergories.map((catergory, i) =>
+      <option key={i}>{catergory.name}</option>);
     return (
-      <Select state={this.state} />
+      <div>
+        <p>Catergories</p>
+        <select>
+           {optionItems}
+        </select>
+      </div>
     );
   }
 }

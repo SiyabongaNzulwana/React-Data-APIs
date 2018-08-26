@@ -8,14 +8,33 @@ import {
 import Home from "./Home";
 import Search from "./Search";
 import Catergory from "./Catergory";
+import BeerDetails from './BeerDetails';
 
 class Main extends Component {
   constructor(){
     super();
     this.state = {
-      catergories: null,
+      catergories: [],
       beers: []
     }
+  }
+
+  componentDidMount = async() => {
+    let initialCataergories = [];
+    await fetch('http://apichallenge.canpango.com/categories/')
+      .then(response => {
+        console.log('response: ', response);
+        return response.json();
+      }).then(data => {
+        console.log('data: ', data);
+        initialCataergories = data.map((category) => {
+          return category
+        });
+        this.setState({
+          catergories: initialCataergories,
+        });
+        console.log('catergories after state: ', this.state.catergories);
+      });
   }
 
   render() {
@@ -27,11 +46,13 @@ class Main extends Component {
             <li><NavLink onClick={this.getCatergories} exact to="/">Home</NavLink></li>
             <li><NavLink to="/Beers">BeerList</NavLink></li>
             <li><NavLink to="/Catergory">Catergory</NavLink></li>
+            <li><NavLink to="/BeerDetails">BeerDetails</NavLink></li>
           </ul>
           <div className="content">
             <Route exact path="/" component={Home} />
-            <Route path="/Beers" component={Search} />
-            <Route path="/Catergory" render={props=><Catergory {...props} data={this.state.catergories}/>}/>
+            <Route path="/Beers" render={props => <Search {...props} data={this.state.catergories}/>}/>
+            <Route path="/Catergory" render={props => <Catergory {...props} data={this.state.catergories}/>}/>
+            <Route path="/BeerDetails" component={BeerDetails} />
           </div>
         </div>
       </HashRouter>
