@@ -44,8 +44,8 @@ class Main extends Component {
           <h1>Canpango Beer Data</h1>
           <ul className="header">
             <li><NavLink onClick={this.getCatergories} exact to="/">Home</NavLink></li>
-            <li><NavLink to="/Beers">BeerList</NavLink></li>
-            <li><NavLink to="/Catergory">Catergory</NavLink></li>
+            <li><NavLink to="/Beers">Search/Add Beer</NavLink></li>
+            <li><NavLink to="/Catergory">Catergories</NavLink></li>
             <li><NavLink to="/BeerDetails">BeerDetails</NavLink></li>
           </ul>
           <div className="content">
